@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaya Kotoba oleh Just Reza</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        jp: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        jpRed: '#E63946',
+                        jpDark: '#1D2A44',
+                        jpAccent: '#3B82F6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F1F5F9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .jp-font {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-red-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="bg-jpDark/95 backdrop-blur-md text-white sticky top-0 z-50 shadow-lg border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchMainTab('kategori')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-jpRed to-rose-500 flex items-center justify-center font-extrabold text-xl shadow-lg shadow-red-900/40 group-hover:scale-105 transition duration-300">
+                        語
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight tracking-wide group-hover:text-red-400 transition">Kaya Kotoba</h1>
+                        <p class="text-[11px] text-slate-400 font-jp">日常の単語集</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex space-x-2 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-700/60 shadow-inner">
+                    <button id="nav-btn-kategori" onclick="switchMainTab('kategori')" class="flex items-center space-x-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 bg-jpRed text-white shadow-md">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Kategori Box</span>
+                    </button>
+                    <button id="nav-btn-kuis" onclick="switchMainTab('kuis')" class="flex items-center space-x-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-slate-800/80">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>Latihan Kuis</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- ================= SECTION 1: KATEGORI BOXES ================= -->
+        <section id="section-kategori" class="space-y-8">
+            <!-- Simplified Hero Banner -->
+            <div class="bg-gradient-to-r from-slate-900 via-jpDark to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-slate-800 flex flex-col justify-center">
+                <h2 class="text-xl sm:text-3xl font-extrabold tracking-tight">Kotoba Harian Bahasa Jepang</h2>
+                <p class="text-slate-300 text-xs sm:text-sm mt-1.5 leading-relaxed">
+                    Pilih kategori di bawah untuk mempelajari kotoba. Dilengkapi Kanji, Furigana, arti Indonesia, audio pengucapan, dan contoh kalimat.
+                </p>
+            </div>
+
+            <!-- Grid Category Boxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="category-grid">
+                <!-- Javascript will inject categories here -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: DETAIL KOTOBA IN CATEGORY ================= -->
+        <section id="section-detail" class="hidden space-y-6">
+            <!-- Top Action Bar -->
+            <div class="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <button onclick="backToCategories()" class="inline-flex items-center space-x-2 text-slate-600 hover:text-jpRed font-bold text-xs sm:text-sm transition px-3 py-2 rounded-xl hover:bg-red-50">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Daftar Kategori</span>
+                </button>
+            </div>
+
+            <!-- Category Header Information -->
+            <div id="detail-category-header" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <!-- Dynamic Header -->
+            </div>
+
+            <!-- Grid Cards Kotoba -->
+            <div id="kotoba-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Kotoba Cards -->
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: KUIS LATIHAN ================= -->
+        <section id="section-kuis" class="hidden space-y-6">
+            <!-- Quiz Control & Summary Header -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-red-100 text-jpRed">BANK SOAL: 160 KOTOBA</span>
+                            <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-indigo-100 text-indigo-700">SESI: 50 SOAL</span>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Kuis Evaluasi Kotoba</h2>
+                        <p class="text-slate-500 text-xs sm:text-sm">
+                            Soal pilihan ganda yang diacak (Jepang ➔ Indonesia & Indonesia ➔ Jepang).
+                        </p>
+                    </div>
+
+                    <!-- Quiz Actions Header -->
+                    <div class="flex items-center gap-3">
+                        <button onclick="generateRandomQuiz()" class="inline-flex items-center space-x-2 px-5 py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl text-xs sm:text-sm transition shadow-sm border border-indigo-100">
+                            <i class="fa-solid fa-shuffle text-indigo-600"></i>
+                            <span>Acak Ulang Soal</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Progress Bar & Score Board -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xl shadow-sm">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Progress Terjawab</p>
+                            <p id="quiz-progress-text" class="text-xl font-extrabold text-slate-800 mt-0.5">0 / 50</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xl shadow-sm">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Status Evaluasi</p>
+                            <p id="quiz-score-text" class="text-xl font-extrabold text-slate-800 mt-0.5">Belum Selesai</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl shadow-sm">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Tingkat Akurasi</p>
+                            <p id="quiz-accuracy-text" class="text-xl font-extrabold text-slate-800 mt-0.5">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Announcement Banner -->
+            <div id="quiz-result-banner" class="hidden bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div class="flex items-center space-x-5">
+                    <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl font-bold shadow-inner">
+                        🎯
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold">Evaluasi Selesai!</h3>
+                        <p id="quiz-result-detail" class="text-emerald-100 text-sm mt-1">Skor Anda telah dihitung dengan akurat.</p>
+                    </div>
+                </div>
+                <button onclick="generateRandomQuiz()" class="px-6 py-3 bg-white text-emerald-800 font-bold rounded-xl text-sm hover:bg-emerald-50 transition shadow-lg w-full sm:w-auto text-center">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> Coba Kuis Baru
+                </button>
+            </div>
+
+            <!-- Question Cards Container -->
+            <div id="quiz-questions-list" class="space-y-6">
+                <!-- Javascript will inject 50 questions here -->
+            </div>
+
+            <!-- Bottom Centered Finish Button -->
+            <div class="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-slate-200 shadow-xl flex justify-center items-center sticky bottom-4 z-40">
+                <button onclick="submitQuiz()" class="px-8 py-3.5 bg-jpRed hover:bg-red-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow-lg shadow-red-500/25 transition flex items-center justify-center space-x-2 w-full sm:w-auto text-center">
+                    <i class="fa-solid fa-check-double"></i>
+                    <span>Selesai & Cek Skor</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-16 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-1">
+            <p class="font-bold text-slate-800 text-sm">Kotoba Harian Bahasa Jepang</p>
+            <p class="text-slate-500">Disusun oleh Just Reza</p>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // DATA KOTOBA LENGKAP & REVISI PERBAIKAN TYPO
+        const categoriesData = [
+            {
+                id: "alat_tulis",
+                title: "1. Alat Tulis",
+                jpTitle: "文房具と学校用品",
+                icon: "fa-pen-ruler",
+                color: "from-blue-500 to-cyan-600",
+                badgeBg: "bg-blue-100 text-blue-800 border-blue-200",
+                description: "Kosakata peralatan tulis, buku, dan perlengkapan kelas.",
+                items: [
+                    { jp: "鉛筆", furigana: "えんぴつ", id: "Pensil", sentenceJp: "鉛筆でノートに文字を書きます。", sentenceFurigana: "えんぴつ で ノート に もじ を かきます。", sentenceId: "Menulis huruf di buku dengan pensil." },
+                    { jp: "消しゴム", furigana: "けしごむ", id: "Penghapus", sentenceJp: "間違えた文字を消しゴムで消します。", sentenceFurigana: "まちがえた もじ を けしごむ で けします。", sentenceId: "Menghapus huruf yang salah dengan penghapus." },
+                    { jp: "ボールペン", furigana: "ボールペン", id: "Pulpen", sentenceJp: "黒いボールペンで書類に書きます。", sentenceFurigana: "くろい ボールペン で しょるい に かきます。", sentenceId: "Menulis dokumen dengan pulpen hitam." },
+                    { jp: "定規", furigana: "じょうぎ", id: "Penggaris", sentenceJp: "定規を使ってまっすぐな線を引きます。", sentenceFurigana: "じょうぎ を つかって まっすぐな せん を ひきます。", sentenceId: "Gunakan penggaris untuk membuat garis lurus." },
+                    { jp: "ハサミ", furigana: "ハサミ", id: "Gunting", sentenceJp: "ハサミで紙をきれいに切ります。", sentenceFurigana: "ハサミ で かみ を きれいに きります。", sentenceId: "Menggunting kertas dengan rapi." },
+                    { jp: "ノート", furigana: "ノート", id: "Buku Catatan", sentenceJp: "授業のメモをノートに取ります。", sentenceFurigana: "じゅぎょう の メモ を ノート に とります。", sentenceId: "Mencatat pelajaran di buku catatan." },
+                    { jp: "辞書", furigana: "じしょ", id: "Kamus", sentenceJp: "知らない単語を辞書で調べます。", sentenceFurigana: "しらない たんご を じしょ で しらべます。", sentenceId: "Mencari kata yang tidak diketahui di kamus." },
+                    { jp: "ホッチキス", furigana: "ホッチキス", id: "Stapler", sentenceJp: "プリントをホッチキスで止めます。", sentenceFurigana: "プリント を ホッチキス で とめます。", sentenceId: "Menyatukan kertas cetakan dengan stapler." },
+                    { jp: "のり", furigana: "のり", id: "Lem", sentenceJp: "写真をノートにのりで貼ります。", sentenceFurigana: "しゃしん を ノート に のり で はります。", sentenceId: "Menempelkan foto ke buku dengan lem." },
+                    { jp: "筆箱", furigana: "ふでばこ", id: "Kotak Pensil", sentenceJp: "新しい筆箱にペンを入れます。", sentenceFurigana: "あたらしい ふでばこ に ペン を いれます。", sentenceId: "Memasukkan pulpen ke kotak pensil baru." },
+                    { jp: "クリップ", furigana: "クリップ", id: "Klip Kertas", sentenceJp: "書類をクリップでまとめます。", sentenceFurigana: "しょるい を クリップ で まとめます。", sentenceId: "Jepit dokumen dengan klip kertas." },
+                    { jp: "教科書", furigana: "きょうかしょ", id: "Buku Pelajaran", sentenceJp: "教科書の５０ページを開けてください。", sentenceFurigana: "きょうかしょ の ごじゅう ページ を あけて ください。", sentenceId: "Buka buku pelajaran halaman 50." },
+                    { jp: "紙", furigana: "かみ", id: "Kertas", sentenceJp: "白い紙に絵を描きます。", sentenceFurigana: "しろい かみ に え を かきます。", sentenceId: "Menggambar di atas kertas putih." },
+                    { jp: "色鉛筆", furigana: "いろえんぴつ", id: "Pensil Warna", sentenceJp: "色鉛筆で綺麗に塗ります。", sentenceFurigana: "いろえんぴつ で きれい に ぬります。", sentenceId: "Mewarnai dengan indah memakai pensil warna." },
+                    { jp: "付箋", furigana: "ふせん", id: "Kertas Sticky Note", sentenceJp: "大切な場所に付箋を貼ります。", sentenceFurigana: "たいせつ な ばしょ に ふせん を はります。", sentenceId: "Menempelkan sticky note di bagian penting." },
+                    { jp: "電卓", furigana: "でんたく", id: "Kalkulator", sentenceJp: "電卓で計算をします。", sentenceFurigana: "でんたく で けいさん を します。", sentenceId: "Berhitung menggunakan kalkulator." },
+                    { jp: "黒板", furigana: "こくばん", id: "Papan Tulis Hitam", sentenceJp: "先生が黒板に文字を書きます。", sentenceFurigana: "せんせい が こくばん に もじ を かきます。", sentenceId: "Guru menulis huruf di papan tulis." },
+                    { jp: "チョーク", furigana: "チョーク", id: "Kapur Tulis", sentenceJp: "白チョークで文字を書きます。", sentenceFurigana: "しろ チョーク で もじ を かきます。", sentenceId: "Menulis huruf dengan kapur putih." },
+                    { jp: "修正テープ", furigana: "しゅうせいテープ", id: "Tip-Ex / Tipex Tape", sentenceJp: "修正テープで間違いを直します。", sentenceFurigana: "しゅうせいテープ で まちがい を なおします。", sentenceId: "Memperbaiki kesalahan dengan tipex tape." },
+                    { jp: "ファイル", furigana: "ファイル", id: "Map / File Folder", sentenceJp: "重要書類をファイルに入れます。", sentenceFurigana: "じゅうよう しょるい を ファイル に いれます。", sentenceId: "Memasukkan dokumen penting ke dalam file." }
+                ]
+            },
+            {
+                id: "pakaian",
+                title: "2. Pakaian & Aksesoris",
+                jpTitle: "衣類・身の回り品",
+                icon: "fa-shirt",
+                color: "from-rose-500 to-pink-600",
+                badgeBg: "bg-rose-100 text-rose-800 border-rose-200",
+                description: "Kosakata busana, pelengkap pakaian, dan barang bawaan sehari-hari.",
+                items: [
+                    { jp: "服", furigana: "ふく", id: "Pakaian / Baju", sentenceJp: "お気に入りの服を着て出かけます。", sentenceFurigana: "おきにいり の ふく を きて でかけます。", sentenceId: "Pergi keluar memakai baju favorit." },
+                    { jp: "靴", furigana: "くつ", id: "Sepatu", sentenceJp: "玄関で靴を脱いでください。", sentenceFurigana: "げんかん で くつ を ぬいで ください。", sentenceId: "Tolong lepaskan sepatu di teras." },
+                    { jp: "靴下", furigana: "くつした", id: "Kaos Kaki", sentenceJp: "暖かくするために靴下を履きます。", sentenceFurigana: "あたたかく する ため に くつした を はきます。", sentenceId: "Memakai kaos kaki agar hangat." },
+                    { jp: "傘", furigana: "かさ", id: "Payung", sentenceJp: "雨が降っているので傘をさします。", sentenceFurigana: "あめ が ふっている ので かさ を さします。", sentenceId: "Pakai payung karena sedang hujan." },
+                    { jp: "財布", furigana: "さいふ", id: "Dompet", sentenceJp: "ポケットから財布を取り出します。", sentenceFurigana: "ポケット から さいふ を とりだします。", sentenceId: "Mengeluarkan dompet dari saku." },
+                    { jp: "鞄", furigana: "かばん", id: "Tas", sentenceJp: "重い荷物を鞄に入れます。", sentenceFurigana: "おもい にもつ を かばん に いれます。", sentenceId: "Memasukkan barang berat ke dalam tas." },
+                    { jp: "帽子", furigana: "ぼうし", id: "Topi", sentenceJp: "日差しが強いので帽子をかぶります。", sentenceFurigana: "ひざし が つよい ので ぼうし を かぶります。", sentenceId: "Memakai topi karena terik matahari tajam." },
+                    { jp: "眼鏡", furigana: "めがね", id: "Kacamata", sentenceJp: "眼鏡をかけるとよく見えます。", sentenceFurigana: "めがね を かけると よく みえます。", sentenceId: "Kelihatan jelas jika memakai kacamata." },
+                    { jp: "指輪", furigana: "ゆびわ", id: "Cincin", sentenceJp: "指に綺麗な指輪をつけています。", sentenceFurigana: "ゆび に きれいな ゆびわ を つけて います。", sentenceId: "Memakai cincin indah di jari." },
+                    { jp: "マスク", furigana: "マスク", id: "Masker", sentenceJp: "風邪をひいたのでマスクをします。", sentenceFurigana: "かぜ を ひいた ので マスク を します。", sentenceId: "Memakai masker karena masuk angin." },
+                    { jp: "手袋", furigana: "てぶくろ", id: "Sarung Tangan", sentenceJp: "冬の寒い日は手袋をはめます。", sentenceFurigana: "ふゆ の さむい ひ は てぶくろ を はめます。", sentenceId: "Memakai sarung tangan saat hari dingin." },
+                    { jp: "ベルト", furigana: "ベルト", id: "Ikat Pinggang", sentenceJp: "ズボンに黒いベルトを締めます。", sentenceFurigana: "ズボン に くろい ベルト を しめます。", sentenceId: "Pasang ikat pinggang hitam pada celana." },
+                    { jp: "シャツ", furigana: "シャツ", id: "Kemeja", sentenceJp: "白いシャツを着て会社に行きます。", sentenceFurigana: "しろい シャツ を きて かいしゃ に いきます。", sentenceId: "Pergi ke kantor memakai kemeja putih." },
+                    { jp: "ズボン", furigana: "ズボン", id: "Celana Panjang", sentenceJp: "新しい黒いズボンを買いました。", sentenceFurigana: "あたらしい くろい ズボン を かいました。", sentenceId: "Membeli celana panjang hitam baru." },
+                    { jp: "スカート", furigana: "スカート", id: "Rok", sentenceJp: "長いスカートを履いています。", sentenceFurigana: "ながい スカート を はいて います。", sentenceId: "Sedang memakai rok panjang." },
+                    { jp: "コート", furigana: "コート", id: "Mantel / Coat", sentenceJp: "寒いので厚いコートを着ます。", sentenceFurigana: "さむい ので あつい コート を きます。", sentenceId: "Memakai mantel tebal karena dingin." },
+                    { jp: "セーター", furigana: "セーター", id: "Baju Hangat / Sweater", sentenceJp: "母が編んだセーターを着ます。", sentenceFurigana: "はは が あんだ セーター を きます。", sentenceId: "Memakai sweater yang dirajut ibu." },
+                    { jp: "ネクタイ", furigana: "ネクタイ", id: "Dasi", sentenceJp: "ネクタイをきれいに結びます。", sentenceFurigana: "ネクタイ を きれいに むすびます。", sentenceId: "Mengikat dasi dengan rapi." },
+                    { jp: "腕時計", furigana: "うでとけい", id: "Jam Tangan", sentenceJp: "腕時計を見て時間を確認します。", sentenceFurigana: "うでとけい を みて じかん を かくにん します。", sentenceId: "Melihat jam tangan untuk mengecek waktu." },
+                    { jp: "ポケット", furigana: "ポケット", id: "Saku / Kantong", sentenceJp: "ポケットに鍵が入っています。", sentenceFurigana: "ポケット に かぎ が はいっています。", sentenceId: "Kunci ada di dalam saku." }
+                ]
+            },
+            {
+                id: "dapur",
+                title: "3. Peralatan Dapur",
+                jpTitle: "台所用品",
+                icon: "fa-kitchen-set",
+                color: "from-amber-500 to-orange-600",
+                badgeBg: "bg-amber-100 text-amber-800 border-amber-200",
+                description: "Kosakata perkakas memasak, alat makan, dan perlengkapan dapur.",
+                items: [
+                    { jp: "冷蔵庫", furigana: "れいぞうこ", id: "Kulkas", sentenceJp: "冷蔵庫に冷たい水があります。", sentenceFurigana: "れいぞうこ に つめたい みず が あります。", sentenceId: "Ada air dingin di kulkas." },
+                    { jp: "包丁", furigana: "ほうちょう", id: "Pisau Dapur", sentenceJp: "この包丁はとてもよく切れます。", sentenceFurigana: "この ほうちょう は とても よく きれます。", sentenceId: "Pisau dapur ini sangat tajam." },
+                    { jp: "まな板", furigana: "まないた", id: "Talenan", sentenceJp: "まな板の上で野菜を切ります。", sentenceFurigana: "まないた の うえ で やさい を きります。", sentenceId: "Memotong sayuran di atas talenan." },
+                    { jp: "電子レンジ", furigana: "でんしレンジ", id: "Microwave", sentenceJp: "お弁当を電子レンジで温めます。", sentenceFurigana: "おべんとう を でんしレンジ で あたためます。", sentenceId: "Menghangatkan bento dengan microwave." },
+                    { jp: "炊飯器", furigana: "すいはんき", id: "Penanak Nasi (Rice Cooker)", sentenceJp: "炊飯器でご飯を炊きます。", sentenceFurigana: "すいはんき で ごはん を たきます。", sentenceId: "Memasak nasi dengan rice cooker." },
+                    { jp: "フライパン", furigana: "フライパン", id: "Wajan / Penggorengan", sentenceJp: "フライパンで卵を焼きます。", sentenceFurigana: "フライパン で たまご を やきます。", sentenceId: "Menggoreng telur di wajan." },
+                    { jp: "鍋", furigana: "なべ", id: "Panci", sentenceJp: "鍋で美味しいスープを作ります。", sentenceFurigana: "なべ で おいしい スープ を つくります。", sentenceId: "Membuat sup lezat di panci." },
+                    { jp: "お皿", furigana: "おさら", id: "Piring", sentenceJp: "洗ったお皿を棚にしまいます。", sentenceFurigana: "あらった おさら を たな に しまいます。", sentenceId: "Menyimpan piring yang sudah dicuci ke lemari." },
+                    { jp: "コップ", furigana: "コップ", id: "Gelas", sentenceJp: "コップに牛乳を注ぎます。", sentenceFurigana: "コップ に ぎゅうにゅう を そそぎます。", sentenceId: "Menuangkan susu ke dalam gelas." },
+                    { jp: "箸", furigana: "はし", id: "Sumpit", sentenceJp: "ラーメンを箸で食べます。", sentenceFurigana: "ラーメン を はし で たべます。", sentenceId: "Makan ramen menggunakan sumpit." },
+                    { jp: "スプーン", furigana: "スプーン", id: "Sendok", sentenceJp: "スプーンでスープを飲みます。", sentenceFurigana: "スプーン で スープ を のみます。", sentenceId: "Minum sup menggunakan sendok." },
+                    { jp: "フォーク", furigana: "フォーク", id: "Garpu", sentenceJp: "パスタをフォークで食べます。", sentenceFurigana: "パスタ を フォーク で たべます。", sentenceId: "Makan pasta dengan garpu." },
+                    { jp: "お茶碗", furigana: "おちゃわん", id: "Mangkok Nasi", sentenceJp: "お茶碗にご飯を盛ります。", sentenceFurigana: "おちゃわん に ごはん を もります。", sentenceId: "Mengisi nasi ke dalam mangkok nasi." },
+                    { jp: "やかん", furigana: "やかん", id: "Cerek / Teko Air", sentenceJp: "やかんでお湯を沸かします。", sentenceFurigana: "やかん で おゆ を わかします。", sentenceId: "Mendidihkan air dengan teko." },
+                    { jp: "オーブン", furigana: "オーブン", id: "Oven", sentenceJp: "オーブンでパンを焼きます。", sentenceFurigana: "オーブン で パン を やきます。", sentenceId: "Panggang roti di dalam oven." },
+                    { jp: "おたま", furigana: "おたま", id: "Sendok Sayur / Centong", sentenceJp: "おたまでスープをすくいます。", sentenceFurigana: "おたま で スープ を すくいます。", sentenceId: "Mengambil sup dengan sendok sayur." },
+                    { jp: "水筒", furigana: "すいとう", id: "Botol Minum / Termos", sentenceJp: "学校へ水筒を持って行きます。", sentenceFurigana: "がっこう へ すいとう を もって いきます。", sentenceId: "Bawa botol minum ke sekolah." },
+                    { jp: "エプロン", furigana: "エプロン", id: "Celemek", sentenceJp: "料理をする前にエプロンをつけます。", sentenceFurigana: "りょうり を する まえ に エプロン を つけます。", sentenceId: "Memakai celemek sebelum memasak." },
+                    { jp: "缶切り", furigana: "かんきり", id: "Pembuka Kaleng", sentenceJp: "缶切りで缶詰を開けます。", sentenceFurigana: "かんきり で かんづめ を あけます。", sentenceId: "Membuka makanan kaleng dengan pembuka kaleng." },
+                    { jp: "ふきん", furigana: "ふきん", id: "Kain Lap Dapur", sentenceJp: "ふきんでテーブルを拭きます。", sentenceFurigana: "ふきん で テーブル を ふきます。", sentenceId: "Lap meja dengan kain lap dapur." }
+                ]
+            },
+            {
+                id: "kebersihan",
+                title: "4. Kebersihan & Sanitasi",
+                jpTitle: "掃除用品と衛生",
+                icon: "fa-broom",
+                color: "from-sky-500 to-blue-600",
+                badgeBg: "bg-sky-100 text-sky-800 border-sky-200",
+                description: "Kosakata pembersih rumah, sanitasi diri, dan perawatan kebersihan.",
+                items: [
+                    { jp: "掃除機", furigana: "そうじき", id: "Penyedot Debu", sentenceJp: "毎日掃除機で部屋をきれいにします。", sentenceFurigana: "まいにち そうじき で へや を きれいに します。", sentenceId: "Setiap hari membersihkan kamar dengan penyedot debu." },
+                    { jp: "ほうき", furigana: "ほうき", id: "Sapu", sentenceJp: "ほうきで庭の落ち葉をはきます。", sentenceFurigana: "ほうき で にわ の おちば を はきます。", sentenceId: "Menyapu daun gugur di halaman dengan sapu." },
+                    { jp: "ちりとり", furigana: "ちりとり", id: "Pengki / Serokan Sampah", sentenceJp: "ゴミをほうきでちりとりに集めます。", sentenceFurigana: "ごみ を ほうき で ちりとり に あつめます。", sentenceId: "Kumpulkan sampah ke pengki menggunakan sapu." },
+                    { jp: "モップ", furigana: "モップ", id: "Pel", sentenceJp: "濡れたモップで床を拭きます。", sentenceFurigana: "ぬれた モップ で ゆか を ふきます。", sentenceId: "Mengepel lantai dengan pel basah." },
+                    { jp: "洗剤", furigana: "せんざい", id: "Deterjen / Sabun Cuci", sentenceJp: "洗濯機に洗剤を入れます。", sentenceFurigana: "せんたくき に せんざい を いれます。", sentenceId: "Memasukkan deterjen ke mesin cuci." },
+                    { jp: "タオル", furigana: "タオル", id: "Handuk", sentenceJp: "お風呂上がりに柔らかいタオルを使います。", sentenceFurigana: "おふろあがり に やわらかい タオル を つかいます。", sentenceId: "Menggunakan handuk lembut setelah mandi." },
+                    { jp: "雑巾", furigana: "ぞうきん", id: "Kain Lap", sentenceJp: "雑巾で机の汚れを拭き取ります。", sentenceFurigana: "ぞうきん で つくえ の よごれ を ふきとります。", sentenceId: "Lap kotoran meja dengan kain lap." },
+                    { jp: "洗濯機", furigana: "せんたくき", id: "Mesin Cuci", sentenceJp: "洗濯機で服を洗います。", sentenceFurigana: "せんたくき で ふく を あらいます。", sentenceId: "Mencuci baju dengan mesin cuci." },
+                    { jp: "歯ブラシ", furigana: "はブラシ", id: "Sikat Gigi", sentenceJp: "ご飯を食べた後に歯ブラシで歯を磨きます。", sentenceFurigana: "ごはん を たべた あと に はブラシ で は を みがきます。", sentenceId: "Menyikat gigi dengan sikat gigi setelah makan." },
+                    { jp: "石鹸", furigana: "せっけん", id: "Sabun Mandi", sentenceJp: "石鹸で手をきれいに洗います。", sentenceFurigana: "せっけん で て を きれいに あらいます。", sentenceId: "Cuci tangan sampai bersih memakai sabun." },
+                    { jp: "スポンジ", furigana: "スポンジ", id: "Spons Cuci", sentenceJp: "スポンジでお皿を洗います。", sentenceFurigana: "スポンジ で おさら を あらいます。", sentenceId: "Mencuci piring memakai spons." },
+                    { jp: "バケツ", furigana: "バケツ", id: "Ember", sentenceJp: "バケツに水を汲んできます。", sentenceFurigana: "バケツ に みず を くんできます。", sentenceId: "Mengambil air menggunakan ember." },
+                    { jp: "歯磨き粉", furigana: "はみがきこ", id: "Pasta Gigi", sentenceJp: "歯ブラシに歯磨き粉をつけます。", sentenceFurigana: "はブラシ に はみがきこ を つけます。", sentenceId: "Menaruh pasta gigi di sikat gigi." },
+                    { jp: "シャンプー", furigana: "シャンプー", id: "Sampo", sentenceJp: "いい匂いのシャンプーで髪を洗います。", sentenceFurigana: "いい におい の シャンプー で かみ を あらいます。", sentenceId: "Mencuci rambut dengan sampo yang wangi." },
+                    { jp: "ハンガー", furigana: "ハンガー", id: "Gantungan Baju / Hanger", sentenceJp: "濡れた服をハンガーにかけます。", sentenceFurigana: "ぬれた ふく を ハンガー に かけます。", sentenceId: "Gantung baju basah di gantungan baju." },
+                    { jp: "ゴミ袋", furigana: "ごみぶくろ", id: "Kantong Sampah", sentenceJp: "指定のゴミ袋にゴミを入れます。", sentenceFurigana: "してい の ごみぶくろ に ごみ を いれます。", sentenceId: "Masukkan sampah ke kantong sampah resmi." },
+                    { jp: "消毒液", furigana: "しょうどくえき", id: "Cairan Disinfektan", sentenceJp: "手に消毒液をつけます。", sentenceFurigana: "て に しょうどくえき を つけます。", sentenceId: "Menggunakan cairan disinfektan di tangan." },
+                    { jp: "ティッシュ", furigana: "ティッシュ", id: "Tisu", sentenceJp: "鼻をかむためにティッシュを使います。", sentenceFurigana: "はな を かむ ため に ティッシュ を つかいます。", sentenceId: "Menggunakan tisu untuk membuang ingus." },
+                    { jp: "爪切り", furigana: "つめきり", id: "Pemotong Kuku", sentenceJp: "爪切りで伸びた爪を切ります。", sentenceFurigana: "つめきり で のびた つめ を きります。", sentenceId: "Memotong kuku yang panjang dengan pemotong kuku." },
+                    { jp: "ドライヤー", furigana: "ドライヤー", id: "Pengering Rambut", sentenceJp: "ドライヤーで濡れた髪を乾かします。", sentenceFurigana: "ドライヤー で ぬれた かみ を かわかします。", sentenceId: "Keringkan rambut basah dengan pengering rambut." }
+                ]
+            },
+            {
+                id: "perabotan",
+                title: "5. Perabotan Rumah",
+                jpTitle: "家具とインテリア",
+                icon: "fa-couch",
+                color: "from-emerald-500 to-teal-600",
+                badgeBg: "bg-emerald-100 text-emerald-800 border-emerald-200",
+                description: "Kosakata perabotan interior, tempat penyimpanan, dan perlengkapan kamar.",
+                items: [
+                    { jp: "机", furigana: "つくえ", id: "Meja", sentenceJp: "机の上に勉強の本があります。", sentenceFurigana: "つくえ の うえ に べんきょう の ほん が あります。", sentenceId: "Ada buku belajar di atas meja." },
+                    { jp: "椅子", furigana: "いす", id: "Kursi", sentenceJp: "どうぞその椅子に座ってください。", sentenceFurigana: "どうぞ その いす に すわって ください。", sentenceId: "Silakan duduk di kursi itu." },
+                    { jp: "ベッド", furigana: "ベッド", id: "Tempat Tidur / Kasur", sentenceJp: "毎晩十時にベッドに入ります。", sentenceFurigana: "まいばん じゅうじ に ベッド に はいります。", sentenceId: "Setiap malam jam 10 masuk ke kasur." },
+                    { jp: "ソファー", furigana: "ソファー", id: "Sofa", sentenceJp: "リビングのソファーでやすみます。", sentenceFurigana: "リビング の ソファー で やすみます。", sentenceId: "Beristirahat di sofa ruang tamu." },
+                    { jp: "本棚", furigana: "ほんだな", id: "Lemari Buku", sentenceJp: "本棚に漫画がたくさん並んでいます。", sentenceFurigana: "ほんだな に まんが が たくさん ならんでいます。", sentenceId: "Banyak komik berjajar di lemari buku." },
+                    { jp: "タンス", furigana: "タンス", id: "Lemari Pakaian", sentenceJp: "きれいな服をタンスにしまいます。", sentenceFurigana: "きれいな ふく を タンス に しまいます。", sentenceId: "Menyimpan baju bersih ke lemari pakaian." },
+                    { jp: "鏡", furigana: "かがみ", id: "Cermin", sentenceJp: "鏡を見て髪を整えます。", sentenceFurigana: "かがみ を みて かみ を ととのえます。", sentenceId: "Melihat cermin untuk merapikan rambut." },
+                    { jp: "時計", furigana: "とけい", id: "Jam", sentenceJp: "壁の時計を見て時間を確認します。", sentenceFurigana: "かべ の とけい を みて じかん を かくにん します。", sentenceId: "Melihat jam dinding untuk mengecek waktu." },
+                    { jp: "カーテン", furigana: "カーテン", id: "Gorden", sentenceJp: "朝になったらカーテンを開けます。", sentenceFurigana: "あさ に なったら カーテン を あけます。", sentenceId: "Membuka gorden saat pagi tiba." },
+                    { jp: "ゴミ箱", furigana: "ごみばこ", id: "Tempat Sampah", sentenceJp: "ゴミはゴミ箱に捨ててください。", sentenceFurigana: "ごみ は ごみばこ に すてて ください。", sentenceId: "Tolong buang sampah ke tempat sampah." },
+                    { jp: "絨毯", furigana: "じゅうたん", id: "Karpet", sentenceJp: "絨毯の上に座ってテレビを見ます。", sentenceFurigana: "じゅうたん の うえ に すわって テレビ を みます。", sentenceId: "Duduk di atas karpet sambil menonton TV." },
+                    { jp: "電球", furigana: "でんきゅう", id: "Bohlam Lampu", sentenceJp: "切れた電球を新しいものに交換します。", sentenceFurigana: "きれた でんきゅう を あたらしい もの に こうかん します。", sentenceId: "Mengganti bohlam lampu putus dengan yang baru." },
+                    { jp: "クッション", furigana: "クッション", id: "Bantal Sofa", sentenceJp: "ソファーの上に柔らかいクッションがあります。", sentenceFurigana: "ソファー の うえ に やわらかい クッション が あります。", sentenceId: "Ada bantal empuk di atas sofa." },
+                    { jp: "枕", furigana: "まくら", id: "Bantal Tidur", sentenceJp: "新しい高い枕で寝ます。", sentenceFurigana: "あたらしい たかい まくら で ねます。", sentenceId: "Tidur memakai bantal tinggi baru." },
+                    { jp: "毛布", furigana: "もうふ", id: "Selimut", sentenceJp: "寒い夜は温かい毛布をかけます。", sentenceFurigana: "さむい よる は あたたかい もうふ を かけます。", sentenceId: "Memakai selimut hangat saat malam dingin." },
+                    { jp: "引き出し", furigana: "ひきだし", id: "Laci", sentenceJp: "机の引き出しに大切な物を入れます。", sentenceFurigana: "つくえ の ひきだし に たいせつ な もの を いれます。", sentenceId: "Menyimpan barang penting di laci meja." },
+                    { jp: "押入れ", furigana: "おしいれ", id: "Lemari Dinding Jp", sentenceJp: "布団を押入れにしまいます。", sentenceFurigana: "ふとん を おしいれ に しまいます。", sentenceId: "Menyimpan futon ke dalam lemari dinding." },
+                    { jp: "畳", furigana: "たたみ", id: "Matras Tatami", sentenceJp: "和室の畳の匂いが好きです。", sentenceFurigana: "わしつ の たたみ の におい が すき です。", sentenceId: "Suka bau tatami di kamar gaya Jepang." },
+                    { jp: "クローゼット", furigana: "クローゼット", id: "Lemari Gantung", sentenceJp: "スーツをクローゼットに掛けます。", sentenceFurigana: "スーツ を クローゼット に かけます。", sentenceId: "Gantung jas di dalam lemari." },
+                    { jp: "電気スタンド", furigana: "でんきスタンド", id: "Lampu Belajar", sentenceJp: "電気スタンドをつけて暗い部屋で勉強します。", sentenceFurigana: "でんきスタンド を つけて くらい へや で べんきょう します。", sentenceId: "Menyalakan lampu belajar di kamar gelap." }
+                ]
+            },
+            {
+                id: "elektronik",
+                title: "6. Elektronik & Gadget",
+                jpTitle: "家電とガジェット",
+                icon: "fa-tv",
+                color: "from-purple-500 to-indigo-600",
+                badgeBg: "bg-purple-100 text-purple-800 border-purple-200",
+                description: "Kosakata perangkat elektronik, teknologi, dan gawai modern.",
+                items: [
+                    { jp: "テレビ", furigana: "テレビ", id: "Televisi (TV)", sentenceJp: "夜家族と一緒にテレビを見ます。", sentenceFurigana: "よる かぞく と いっしょに テレビ を みます。", sentenceId: "Nonton TV bersama keluarga di malam hari." },
+                    { jp: "エアコン", furigana: "エアコン", id: "Pendingin Ruangan (AC)", sentenceJp: "暑いのでエアコンをつけます。", sentenceFurigana: "あつい ので エアコン を つけます。", sentenceId: "Menyalakan AC karena panas." },
+                    { jp: "扇風機", furigana: "せんぷうき", id: "Kipas Angin", sentenceJp: "涼しい風が出る扇風機をつけます。", sentenceFurigana: "すずしい かぜ が でる せんぷうき を つけます。", sentenceId: "Menyalakan kipas angin yang mengeluarkan angin sejuk." },
+                    { jp: "充電器", furigana: "じゅうでんき", id: "Pengisi Daya (Charger)", sentenceJp: "スマホの充電器を貸してください。", sentenceFurigana: "スマホ の じゅうでんき を かして ください。", sentenceId: "Tolong pinjamkan charger smartphone." },
+                    { jp: "パソコン", furigana: "パソコン", id: "Komputer / Laptop", sentenceJp: "パソコンで仕事のレポートを作ります。", sentenceFurigana: "パソコン で しごと の レポート を つくります。", sentenceId: "Membuat laporan kerja di komputer." },
+                    { jp: "スマホ", furigana: "スマホ", id: "Smartphone", sentenceJp: "スマホで友達にメッセージを送ります。", sentenceFurigana: "スマホ で ともだち に メッセージ を おくります。", sentenceId: "Kirim pesan ke teman memakai smartphone." },
+                    { jp: "イヤホン", furigana: "イヤホン", id: "Earphone", sentenceJp: "電車の中でイヤホンで音楽を聴きます。", sentenceFurigana: "でんしゃ の なか で イヤホン で おんがく を ききます。", sentenceId: "Dengarkan musik memakai earphone di kereta." },
+                    { jp: "コンセント", furigana: "コンセント", id: "Stopkontak", sentenceJp: "プラグをコンセントに差し込みます。", sentenceFurigana: "プラグ を コンセント に さしこみます。", sentenceId: "Tancapkan steker ke stopkontak." },
+                    { jp: "電池", furigana: "でんち", id: "Baterai", sentenceJp: "リモコンの電池を交換します。", sentenceFurigana: "リモコン の でんち を こうかん します。", sentenceId: "Mengganti baterai remote control." },
+                    { jp: "カメラ", furigana: "カメラ", id: "Kamera", sentenceJp: "旅行で綺麗な風景をカメラで撮ります。", sentenceFurigana: "りょこう で きれいな ふうけい を カメラ で とります。", sentenceId: "Foto pemandangan indah memakai kamera saat liburan." },
+                    { jp: "スピーカー", furigana: "スピーカー", id: "Pengeras Suara (Speaker)", sentenceJp: "大きな音でスピーカーから音楽が流れます。", sentenceFurigana: "おおきな おと で スピーカー から おんがく が ながれます。", sentenceId: "Musik mengalun kencang dari speaker." },
+                    { jp: "タブレット", furigana: "タブレット", id: "Tablet", sentenceJp: "タブレットで動画を画面で見ます。", sentenceFurigana: "タブレット で どうが を がめん で みます。", sentenceId: "Nonton video di layar tablet." },
+                    { jp: "マウス", furigana: "マウス", id: "Mouse Komputer", sentenceJp: "パソコンのマウスの電池が切れました。", sentenceFurigana: "パソコン の マウス の でんち が きれました。", sentenceId: "Baterai mouse komputer habis." },
+                    { jp: "キーボード", furigana: "キーボード", id: "Papan Ketik (Keyboard)", sentenceJp: "キーボードで文字を素早く打ちます。", sentenceFurigana: "キーボード で もじ を すばやく うちます。", sentenceId: "Mengetik huruf dengan cepat di keyboard." },
+                    { jp: "リモコン", furigana: "リモコン", id: "Pengendali Jarak Jauh (Remote)", sentenceJp: "テレビのリモコンを探しています。", sentenceFurigana: "テレビ の リモコン を さがして います。", sentenceId: "Sedang mencari remote TV." },
+                    { jp: "加湿器", furigana: "かしつき", id: "Pelembab Udara (Humidifier)", sentenceJp: "部屋が乾燥しているので加湿器をつけます。", sentenceFurigana: "へや が かんそう している ので かしつき を つけます。", sentenceId: "Menyalakan humidifier karena kamar kering." },
+                    { jp: "空気清浄機", furigana: "くうきせいじょうき", id: "Pembersih Udara (Air Purifier)", sentenceJp: "空気清浄機で部屋の空気を綺麗にします。", sentenceFurigana: "くうきせいじょうき で へや の くうき を きれい に します。", sentenceId: "Membersihkan udara kamar dengan air purifier." },
+                    { jp: "ヒーター", furigana: "ヒーター", id: "Pemanas Ruangan (Heater)", sentenceJp: "冬の寒い日はヒーターをつけます。", sentenceFurigana: "ふゆ の さむい ひ は ヒーター を つけます。", sentenceId: "Menyalakan heater saat hari dingin musim dingin." },
+                    { jp: "アイロン", furigana: "アイロン", id: "Setrika", sentenceJp: "アイロンでシャツのシワを伸ばします。", sentenceFurigana: "アイロン で シャツ の シワ を のばします。", sentenceId: "Merapikan kerutan kemeja dengan setrika." },
+                    { jp: "プラグ", furigana: "プラグ", id: "Steker / Colokan", sentenceJp: "使い終わったらプラグを抜きます。", sentenceFurigana: "つかい おわったら プラグ を ぬきます。", sentenceId: "Cabut steker setelah selesai digunakan." }
+                ]
+            },
+            {
+                id: "tempat",
+                title: "7. Transportasi & Tempat",
+                jpTitle: "交通機関と公共施設",
+                icon: "fa-car-side",
+                color: "from-indigo-500 to-blue-700",
+                badgeBg: "bg-indigo-100 text-indigo-800 border-indigo-200",
+                description: "Kosakata sarana transportasi, lokasi penting, dan fasilitas umum.",
+                items: [
+                    { jp: "電車", furigana: "でんしゃ", id: "Kereta Listrik", sentenceJp: "毎朝電車に乗って会社へ行きます。", sentenceFurigana: "まいあさ でんしゃ に のって かいしゃ へ いきます。", sentenceId: "Setiap pagi naik kereta pergi ke kantor." },
+                    { jp: "車", furigana: "くるま", id: "Mobil", sentenceJp: "父は新しい車を運転しています。", sentenceFurigana: "ちち は あたらしい くるま を うんてん しています。", sentenceId: "Ayah mengendarai mobil baru." },
+                    { jp: "自転車", furigana: "じてんしゃ", id: "Sepeda", sentenceJp: "自転車で近くのスーパーへ行きます。", sentenceFurigana: "じてんしゃ で ちかく の スーパー へ いきます。", sentenceId: "Pergi ke supermarket terdekat memakai sepeda." },
+                    { jp: "駅", furigana: "えき", id: "Stasiun", sentenceJp: "駅の改札口で友達と待ち合わせます。", sentenceFurigana: "えき の かいさつぐち で ともだち と まちあわせます。", sentenceId: "Ketemuan dengan teman di gerbang stasiun." },
+                    { jp: "バス停", furigana: "バスてい", id: "Halte Bus", sentenceJp: "バス停で十分間バスを待ちました。", sentenceFurigana: "バスてい で じゅうふんかん バス を まちました。", sentenceId: "Menunggu bus 10 menit di halte bus." },
+                    { jp: "空港", furigana: "くうこう", id: "Bandara", sentenceJp: "飛行機に乗るために空港へ向かいます。", sentenceFurigana: "ひこうき に のる ため に くうこう へ むかいます。", sentenceId: "Menuju bandara untuk naik pesawat." },
+                    { jp: "病院", furigana: "びょういん", id: "Rumah Sakit", sentenceJp: "熱があるので病院に行きます。", sentenceFurigana: "ねつ が ある ので びょういん に いきます。", sentenceId: "Pergi ke rumah sakit karena demam." },
+                    { jp: "銀行", furigana: "ぎんこう", id: "Bank / ATM", sentenceJp: "銀行でお金を下ろします。", sentenceFurigana: "ぎんこう で おかね を おろします。", sentenceId: "Mengambil uang di bank." },
+                    { jp: "郵便局", furigana: "ゆうびんきょく", id: "Kantor Pos", sentenceJp: "郵便局から手紙を出します。", sentenceFurigana: "ゆうびんきょく から てがみ を だします。", sentenceId: "Mengirim surat dari kantor pos." },
+                    { jp: "コンビニ", furigana: "コンビニ", id: "Minimarket", sentenceJp: "コンビニで飲み物を買います。", sentenceFurigana: "コンビニ で のみもの を かいます。", sentenceId: "Membeli minuman di minimarket." },
+                    { jp: "公園", furigana: "こうえん", id: "Taman", sentenceJp: "天気がいいので公園を散歩します。", sentenceFurigana: "てんき が いい ので こうえん を さんぽ します。", sentenceId: "Jalan-jalan di taman karena cuaca bagus." },
+                    { jp: "学校", furigana: "がっこう", id: "Sekolah", sentenceJp: "八時に学校に着きます。", sentenceFurigana: "はちじ に がっこう に つきます。", sentenceId: "Tiba di sekolah pada jam 8." },
+                    { jp: "交番", furigana: "こうばん", id: "Pos Polisi", sentenceJp: "道に迷ったので交番で尋ねます。", sentenceFurigana: "みち に まよった ので こうばん で たずねます。", sentenceId: "Bertanya di pos polisi karena tersesat." },
+                    { jp: "スーパー", furigana: "スーパー", id: "Supermarket", sentenceJp: "スーパーで新鮮な食材を買います。", sentenceFurigana: "スーパー で しんせん な しょくざい を かいます。", sentenceId: "Membeli bahan makanan segar di supermarket." },
+                    { jp: "薬局", furigana: "やっきょく", id: "Apotek", sentenceJp: "薬局で風邪薬を購入します。", sentenceFurigana: "やっきょく で かぜぐすり を こうにゅう します。", sentenceId: "Membeli obat flu di apotek." },
+                    { jp: "新幹線", furigana: "しんかんせん", id: "Kereta Cepat (Shinkansen)", sentenceJp: "新幹線で東京から大阪へ行きます。", sentenceFurigana: "しんかんせん で とうきょう から おおさか へ いきます。", sentenceId: "Pergi dari Tokyo ke Osaka naik Shinkansen." },
+                    { jp: "飛行機", furigana: "ひこうき", id: "Pesawat Terbang", sentenceJp: "空を高い飛行機が飛んでいます。", sentenceFurigana: "そら を たかい ひこうき が とんでいます。", sentenceId: "Pesawat terbang tinggi di langit." },
+                    { jp: "ホテル", furigana: "ホテル", id: "Hotel", sentenceJp: "綺麗なホテルにチェックインします。", sentenceFurigana: "きれいな ホテル に チェックイン します。", sentenceId: "Check-in di hotel yang bagus." },
+                    { jp: "図書館", furigana: "としょかん", id: "Perpustakaan", sentenceJp: "図書館で静かに本を読みます。", sentenceFurigana: "としょかん で しずかに ほん を よみます。", sentenceId: "Membaca buku dengan tenang di perpustakaan." },
+                    { jp: "映画館", furigana: "えいがかん", id: "Bioskop", sentenceJp: "週末に映画館で最新作品を見ます。", sentenceFurigana: "しゅうまつ に えいがかん で さいしん さくひん を みます。", sentenceId: "Nonton film terbaru di bioskop saat akhir pekan." }
+                ]
+            },
+            {
+                id: "tukang",
+                title: "8. Alat Tukang & Perkakas",
+                jpTitle: "工具と作業用品",
+                icon: "fa-screwdriver-wrench",
+                color: "from-slate-600 to-slate-800",
+                badgeBg: "bg-slate-200 text-slate-800 border-slate-300",
+                description: "Kosakata perkakas pertukangan, alat perbaikan, dan material dasar.",
+                items: [
+                    { jp: "金槌", furigana: "かなづち", id: "Palu / Martil", sentenceJp: "金槌で壁に釘を打ちます。", sentenceFurigana: "かなづち で かべ に くぎ を うちます。", sentenceId: "Memukul paku ke dinding dengan palu." },
+                    { jp: "ドライバー", furigana: "ドライバー", id: "Obeng", sentenceJp: "ドライバーでネジを締めます。", sentenceFurigana: "ドライバー で ネジ を しめます。", sentenceId: "Mengencangkan sekrup menggunakan obeng." },
+                    { jp: "ペンチ", furigana: "ペンチ", id: "Tang", sentenceJp: "ペンチで針金を曲げます。", sentenceFurigana: "ペンチ で はりがね を まげます。", sentenceId: "Membengkokkan kawat dengan tang." },
+                    { jp: "ノコギリ", furigana: "ノコギリ", id: "Gergaji", sentenceJp: "ノコギリで大きな木を切ります。", sentenceFurigana: "ノコギリ で おおきな き を きります。", sentenceId: "Memotong kayu besar dengan gergaji." },
+                    { jp: "釘", furigana: "くぎ", id: "Paku", sentenceJp: "板に釘を刺します。", sentenceFurigana: "いた に くぎ を さします。", sentenceId: "Menancapkan paku ke papan." },
+                    { jp: "ネジ", furigana: "ネジ", id: "Sekrup", sentenceJp: "ネジが緩んでいるので直します。", sentenceFurigana: "ネジ が ゆるんでいる ので なおします。", sentenceId: "Memperbaiki sekrup yang longgar." },
+                    { jp: "粘着テープ", furigana: "ねんちゃくテープ", id: "Selotip / Lakban", sentenceJp: "段ボールを粘着テープで止めます。", sentenceFurigana: "だんボール を ねんちゃくテープ で とめます。", sentenceId: "Merekatkan kardus dengan lakban." },
+                    { jp: "梯子", furigana: "はしご", id: "Tangga Lipat", sentenceJp: "梯子に登って屋根を修理します。", sentenceFurigana: "はしご に のぼって やね を しゅうり します。", sentenceId: "Naik tangga untuk memperbaiki atap." },
+                    { jp: "メジャー", furigana: "メジャー", id: "Meteran (Pengukur)", sentenceJp: "メジャーで部屋の長さを測ります。", sentenceFurigana: "メジャー で へや の ながさ を はかります。", sentenceId: "Mengukur panjang ruangan dengan meteran." },
+                    { jp: "鍵", furigana: "かぎ", id: "Kunci", sentenceJp: "出かける前にドアの鍵をかけます。", sentenceFurigana: "でかける まえ に ドア の かぎ を かけます。", sentenceId: "Mengunci pintu sebelum bepergian." },
+                    { jp: "レンチ", furigana: "レンチ", id: "Kunci Pas", sentenceJp: "レンチを使ってボルトを回します。", sentenceFurigana: "レンチ を つかって ボルト を まわします。", sentenceId: "Memutar baut menggunakan kunci pas." },
+                    { jp: "懐中電灯", furigana: "かいちゅうでんとう", id: "Senter", sentenceJp: "停電の時に懐中電灯を使います。", sentenceFurigana: "ていでん の とき に かいちゅうでんとう を つかいます。", sentenceId: "Gunakan senter saat mati listrik." },
+                    { jp: "ペンキ", furigana: "ペンキ", id: "Cat", sentenceJp: "壁に新しい色のペンキを塗ります。", sentenceFurigana: "かべ に あたらしい いろ の ペンキ を ぬります。", sentenceId: "Mengecat dinding dengan warna baru." },
+                    { jp: "ハケ", furigana: "ハケ", id: "Kuas Cat", sentenceJp: "ハケを使って綺麗に塗ります。", sentenceFurigana: "ハケ を つかって きれい に ぬります。", sentenceId: "Mengecat dengan rapi memakai kuas." },
+                    { jp: "ドリル", furigana: "ドリル", id: "Mesin Bor", sentenceJp: "ドリルで壁に小さな穴を開けます。", sentenceFurigana: "ドリル で かべ に ちいさな あな を あけます。", sentenceId: "Membuat lubang kecil di dinding dengan bor." },
+                    { jp: "針金", furigana: "はりがね", id: "Kawat", sentenceJp: "針金でしっかり固定します。", sentenceFurigana: "はりがね で しっかり こてい します。", sentenceId: "Mengikat kuat menggunakan kawat." },
+                    { jp: "鎖", furigana: "くさり", id: "Rantai", sentenceJp: "自転車を頑丈な鎖で繋ぎます。", sentenceFurigana: "じてんしゃ を がんじょう な くさり で つなぎます。", sentenceId: "Mengikat sepeda dengan rantai kuat." },
+                    { jp: "やすり", furigana: "やすり", id: "Amplas / Kikir", sentenceJp: "木材の表面をやすりで削ります。", sentenceFurigana: "もくざい の ひょうめん を やすり で けずります。", sentenceId: "Haluskan permukaan kayu dengan amplas." },
+                    { jp: "スコップ", furigana: "スコップ", id: "Sekop", sentenceJp: "スコップで庭の土を掘ります。", sentenceFurigana: "スコップ で にわ の つち を ほります。", sentenceId: "Menggali tanah halaman dengan sekop." },
+                    { jp: "作業用手袋", furigana: "さぎょうようてぶくろ", id: "Sarung Tangan Kerja", sentenceJp: "怪我を防ぐために作業用手袋をはめます。", sentenceFurigana: "けが を ふせぐ ため に さぎょうようてぶくろ を はめます。", sentenceId: "Memakai sarung tangan kerja agar aman." }
+                ]
+            }
+        ];
+
+        // GLOBAL APP STATE
+        let currentSelectedCategory = null;
+        let globalAllKotoba = [];
+        let quizQuestions = [];
+        let userQuizAnswers = {};
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            flattenAllKotoba();
+            renderCategoriesGrid();
+        });
+
+        function flattenAllKotoba() {
+            globalAllKotoba = [];
+            categoriesData.forEach(cat => {
+                cat.items.forEach(item => {
+                    globalAllKotoba.push({
+                        ...item,
+                        categoryTitle: cat.title
+                    });
+                });
+            });
+        }
+
+        // HELPER UNTUK TAMPILAN TEXT SOAL (MENCEGAH DUPLIKASI KATAKANA)
+        function getDisplayText(item) {
+            if (item.jp === item.furigana) {
+                return item.jp;
+            }
+            return `${item.jp} (${item.furigana})`;
+        }
+
+        // AUDIO SYNTHESIS
+        function speakJapanese(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ja-JP';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // TAB SWITCHING
+        function switchMainTab(tabName) {
+            const btnKategori = document.getElementById('nav-btn-kategori');
+            const btnKuis = document.getElementById('nav-btn-kuis');
+            const secKategori = document.getElementById('section-kategori');
+            const secDetail = document.getElementById('section-detail');
+            const secKuis = document.getElementById('section-kuis');
+
+            if (tabName === 'kategori') {
+                btnKategori.className = "flex items-center space-x-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 bg-jpRed text-white shadow-md";
+                btnKuis.className = "flex items-center space-x-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-slate-800/80";
+
+                secKategori.classList.remove('hidden');
+                secDetail.classList.add('hidden');
+                secKuis.classList.add('hidden');
+            } else if (tabName === 'kuis') {
+                btnKuis.className = "flex items-center space-x-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 bg-jpRed text-white shadow-md";
+                btnKategori.className = "flex items-center space-x-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 text-slate-300 hover:text-white hover:bg-slate-800/80";
+
+                secKategori.classList.add('hidden');
+                secDetail.classList.add('hidden');
+                secKuis.classList.remove('hidden');
+
+                if (quizQuestions.length === 0) {
+                    generateRandomQuiz();
+                }
+            }
+        }
+
+        // RENDER CATEGORIES
+        function renderCategoriesGrid() {
+            const gridContainer = document.getElementById('category-grid');
+            gridContainer.innerHTML = '';
+
+            categoriesData.forEach(cat => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl border border-slate-200/90 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden";
+                card.onclick = () => openCategoryDetail(cat.id);
+
+                card.innerHTML = `
+                    <div class="space-y-4 relative z-10">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${cat.color} text-white flex items-center justify-center text-xl shadow-lg group-hover:scale-110 transition duration-300">
+                                <i class="fa-solid ${cat.icon}"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full ${cat.badgeBg} border">
+                                ${cat.items.length} Kotoba
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-slate-900 text-lg group-hover:text-jpRed transition duration-200">${cat.title}</h3>
+                            <p class="text-xs font-jp text-slate-400 font-medium">${cat.jpTitle}</p>
+                            <p class="text-xs text-slate-500 mt-2 line-clamp-2 leading-relaxed">${cat.description}</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-jpRed relative z-10">
+                        <span>Pelajari Kosakata</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1.5 transition duration-200"></i>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // CATEGORY DETAIL VIEW
+        function openCategoryDetail(catId) {
+            currentSelectedCategory = categoriesData.find(c => c.id === catId);
+            if (!currentSelectedCategory) return;
+
+            document.getElementById('section-kategori').classList.add('hidden');
+            document.getElementById('section-detail').classList.remove('hidden');
+
+            renderCategoryHeader();
+            renderKotobaCards(currentSelectedCategory.items);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToCategories() {
+            document.getElementById('section-detail').classList.add('hidden');
+            document.getElementById('section-kategori').classList.remove('hidden');
+        }
+
+        function renderCategoryHeader() {
+            const headerContainer = document.getElementById('detail-category-header');
+            const cat = currentSelectedCategory;
+            headerContainer.innerHTML = `
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr ${cat.color} text-white flex items-center justify-center text-2xl shadow-lg">
+                        <i class="fa-solid ${cat.icon}"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">${cat.title}</h2>
+                        <p class="text-xs font-jp text-slate-400 font-medium">${cat.jpTitle}</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold px-3 py-1.5 rounded-full ${cat.badgeBg} border">
+                        Total: ${cat.items.length} Kosakata
+                    </span>
+                </div>
+            `;
+        }
+
+        function renderKotobaCards(itemList) {
+            const grid = document.getElementById('kotoba-cards-grid');
+            grid.innerHTML = '';
+
+            itemList.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl border border-slate-200/90 p-6 shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between relative group overflow-hidden border-l-4 border-l-jpRed";
+
+                const isKatakanaPure = (item.jp === item.furigana);
+
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="text-xs font-bold bg-slate-100 text-slate-800 px-3 py-1 rounded-xl border border-slate-200/80">
+                                ${item.id}
+                            </span>
+                            <button onclick="speakJapanese('${item.jp}')" class="w-9 h-9 rounded-xl bg-red-50 hover:bg-jpRed text-jpRed hover:text-white flex items-center justify-center text-xs transition duration-200 shadow-sm" title="Dengarkan Pengucapan">
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-0.5">
+                            ${!isKatakanaPure ? `<p class="text-xs text-jpRed font-jp font-bold tracking-wide">${item.furigana}</p>` : ''}
+                            <h3 class="text-3xl font-black text-slate-900 font-jp tracking-wider">${item.jp}</h3>
+                        </div>
+
+                        <div class="bg-slate-50/90 rounded-2xl p-4 border border-slate-100 text-xs space-y-1.5">
+                            <div class="flex items-center space-x-1.5 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-quote-left text-jpRed"></i>
+                                <span>Contoh Kalimat:</span>
+                            </div>
+                            <p class="font-jp text-slate-800 font-semibold text-sm leading-relaxed">${item.sentenceJp}</p>
+                            <p class="text-slate-400 text-[11px] font-jp leading-tight">${item.sentenceFurigana}</p>
+                            <p class="text-slate-600 italic text-[11px] pt-1 border-t border-slate-200/60">${item.sentenceId}</p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ================= KUIS ENGINE =================
+        function generateRandomQuiz() {
+            document.getElementById('quiz-result-banner').classList.add('hidden');
+            userQuizAnswers = {};
+
+            document.getElementById('quiz-progress-text').innerText = "0 / 50";
+            document.getElementById('quiz-score-text').innerText = "Belum Selesai";
+            document.getElementById('quiz-accuracy-text').innerText = "-";
+
+            let questionPool = [];
+
+            // 1. Soal Jepang -> Indo
+            globalAllKotoba.forEach(item => {
+                questionPool.push({
+                    type: 'jp-to-id',
+                    typeLabel: 'Jepang ➔ Indonesia',
+                    prompt: getDisplayText(item),
+                    correctAnswer: item.id,
+                    options: generateOptions(item.id, 'id')
+                });
+            });
+
+            // 2. Soal Indo -> Jepang
+            globalAllKotoba.forEach(item => {
+                questionPool.push({
+                    type: 'id-to-jp',
+                    typeLabel: 'Indonesia ➔ Jepang',
+                    prompt: item.id,
+                    correctAnswer: getDisplayText(item),
+                    options: generateOptions(getDisplayText(item), 'jp')
+                });
+            });
+
+            // Acak dan ambil 50
+            shuffleArray(questionPool);
+            quizQuestions = questionPool.slice(0, 50);
+
+            renderQuizQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function generateOptions(correctVal, mode) {
+            let options = [correctVal];
+            let allPossibleValues = [];
+
+            if (mode === 'id') {
+                allPossibleValues = globalAllKotoba.map(k => k.id);
+            } else {
+                allPossibleValues = globalAllKotoba.map(k => getDisplayText(k));
+            }
+
+            shuffleArray(allPossibleValues);
+
+            for (let val of allPossibleValues) {
+                if (options.length >= 4) break;
+                if (!options.includes(val)) {
+                    options.push(val);
+                }
+            }
+
+            shuffleArray(options);
+            return options;
+        }
+
+        function renderQuizQuestions() {
+            const container = document.getElementById('quiz-questions-list');
+            container.innerHTML = '';
+
+            quizQuestions.forEach((q, index) => {
+                const qCard = document.createElement('div');
+                qCard.id = `q-card-${index}`;
+                qCard.className = "bg-white rounded-3xl border border-slate-200/90 p-6 shadow-sm space-y-4 transition duration-200";
+
+                let optionsHtml = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHtml += `
+                        <button id="opt-btn-${index}-${optIdx}" onclick="selectQuizOption(${index}, '${escapeQuotes(opt)}', ${optIdx})" class="w-full text-left px-5 py-3.5 rounded-2xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 transition duration-200 flex items-center justify-between group">
+                            <span class="font-jp leading-relaxed">${opt}</span>
+                            <div class="w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-white transition group-hover:border-slate-400"></div>
+                        </button>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <span class="text-xs font-extrabold text-slate-400">Soal #${index + 1}</span>
+                        <span class="text-[11px] font-bold px-3 py-1 rounded-full ${q.type === 'jp-to-id' ? 'bg-red-50 text-jpRed border border-red-100' : 'bg-indigo-50 text-indigo-700 border border-indigo-100'}">
+                            ${q.typeLabel}
+                        </span>
+                    </div>
+
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Pilih arti/pasangan kata yang tepat:</p>
+                        <h4 class="text-2xl font-black text-slate-900 font-jp mt-1">${q.prompt}</h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                        ${optionsHtml}
+                    </div>
+
+                    <div id="q-feedback-${index}" class="hidden text-xs p-3.5 rounded-2xl font-medium mt-2"></div>
+                `;
+                container.appendChild(qCard);
+            });
+        }
+
+        function escapeQuotes(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        function selectQuizOption(qIndex, selectedOpt, optIdx) {
+            userQuizAnswers[qIndex] = selectedOpt;
+
+            const totalOpts = quizQuestions[qIndex].options.length;
+            for (let i = 0; i < totalOpts; i++) {
+                const btn = document.getElementById(`opt-btn-${qIndex}-${i}`);
+                if (btn) {
+                    btn.className = "w-full text-left px-5 py-3.5 rounded-2xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 transition duration-200 flex items-center justify-between";
+                }
+            }
+
+            const activeBtn = document.getElementById(`opt-btn-${qIndex}-${optIdx}`);
+            if (activeBtn) {
+                activeBtn.className = "w-full text-left px-5 py-3.5 rounded-2xl border-2 border-jpRed bg-red-50/60 text-jpRed text-xs sm:text-sm font-bold flex items-center justify-between shadow-sm";
+            }
+
+            const answeredCount = Object.keys(userQuizAnswers).length;
+            document.getElementById('quiz-progress-text').innerText = `${answeredCount} / 50`;
+        }
+
+        function submitQuiz() {
+            const answeredCount = Object.keys(userQuizAnswers).length;
+            if (answeredCount < 50) {
+                if (!confirm(`Anda baru menjawab ${answeredCount} dari 50 soal. Yakin ingin menyelesaikan kuis sekarang?`)) {
+                    return;
+                }
+            }
+
+            let correctCount = 0;
+
+            quizQuestions.forEach((q, index) => {
+                const userAns = userQuizAnswers[index];
+                const card = document.getElementById(`q-card-${index}`);
+                const feedback = document.getElementById(`q-feedback-${index}`);
+
+                if (userAns === q.correctAnswer) {
+                    correctCount++;
+                    card.className = "bg-white rounded-3xl border-2 border-emerald-400 p-6 shadow-sm space-y-4";
+                    feedback.className = "text-xs p-3.5 rounded-2xl font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 block";
+                    feedback.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i> Jawaban Anda Benar!`;
+                } else {
+                    card.className = "bg-white rounded-3xl border-2 border-red-300 p-6 shadow-sm space-y-4";
+                    feedback.className = "text-xs p-3.5 rounded-2xl font-medium bg-red-50 text-red-800 border border-red-200 block";
+                    feedback.innerHTML = `<i class="fa-solid fa-circle-xmark text-jpRed mr-1.5"></i> <b>Kurang Tepat.</b> Jawaban yang benar: <span class="font-bold font-jp">${q.correctAnswer}</span>`;
+                }
+            });
+
+            const accuracy = Math.round((correctCount / 50) * 100);
+
+            document.getElementById('quiz-score-text').innerText = `${correctCount} / 50 Soal`;
+            document.getElementById('quiz-accuracy-text').innerText = `${accuracy}%`;
+
+            const banner = document.getElementById('quiz-result-banner');
+            document.getElementById('quiz-result-detail').innerText = `Skor Akhir: ${correctCount} / 50 Benar (${accuracy}% Akurasi).`;
+            banner.classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+
+</body>
+</html>
