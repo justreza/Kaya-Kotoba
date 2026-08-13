@@ -511,16 +511,26 @@
         }
 
         // AUDIO SYNTHESIS
-        function speakJapanese(text) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ja-JP';
-                utterance.rate = 0.85;
-                window.speechSynthesis.speak(utterance);
-            }
-        }
+function speakJapanese(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        
+        // List of pronunciation corrections (add more words here if needed)
+        const pronunciationFixes = {
+            '紙': 'かみ',
+            // 'wrong_word': 'correct_hiragana',
+        };
 
+        // Use the corrected pronunciation if available, otherwise use the original text
+        const textToSpeak = pronunciationFixes[text] || text;
+
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.85;
+        window.speechSynthesis.speak(utterance);
+    }
+}
+        
         // TAB SWITCHING
         function switchMainTab(tabName) {
             const btnKategori = document.getElementById('nav-btn-kategori');
